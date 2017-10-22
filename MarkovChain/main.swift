@@ -9,5 +9,5 @@
 import Foundation
 
 let generator = CorpusGenerator("ulysses")
-generator.buildText(length: 200)
+generator.buildText(length: 200, start: "time")
 

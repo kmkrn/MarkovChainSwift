@@ -9,23 +9,23 @@
 import Foundation
 class CorpusGenerator {
     
-    var corpus: String?
+    var corpus: String
     
     init(_ corpusName: String) {
         self.corpus = corpusName
     }
     
-    func buildText(length: Int) {
-        let analyser = CorpusAnalyser(corpusName: self.corpus!)
-        guard let text = self.corpus else {
-            return
-        }
-        var start = Substring("Mulligan")
+    func buildText(length: Int, start: String) {
+        let analyser = CorpusAnalyser(corpusName: self.corpus)
+        var initial = Substring(start)
+        var text = String(start)
         for _ in 0...length {
-            let next = analyser.nextWord(text: text, currentWord: start)
-            print(next!)
-            start = next!
+            if let next = analyser.nextWord(text: self.corpus, currentWord: initial) {
+            text.append(String(" \(next)"))
+            initial = next
+            }
         }
+        print(text)
     }
 }
 

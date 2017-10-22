@@ -10,7 +10,7 @@ import Foundation
 
 class CorpusAnalyser {
     let parser = CorpusParser()
-    var corpusName: String?
+    var corpusName: String
     var corpusMatrix: Dictionary<Substring, Occurence<Substring>>
     
     init(corpusName: String) {
@@ -18,8 +18,9 @@ class CorpusAnalyser {
         self.corpusMatrix = CorpusAnalyser.buildMatrix(parser.parse(fileName: corpusName)!)
     }
     
-   private class func buildMatrix(_ strings: [Substring]) -> Dictionary<Substring, Occurence<Substring>> {
+    private class func buildMatrix(_ strings: [Substring]) -> Dictionary<Substring, Occurence<Substring>> {
         var occurencies = Dictionary<Substring, Occurence<Substring>>()
+        
         for (index, substring) in strings.enumerated() {
             var chain = Occurence<Substring>()
             if strings.indices.contains(index + 1){
@@ -30,15 +31,14 @@ class CorpusAnalyser {
                 occurencies[substring] = chain
             }
         }
+        
         return occurencies
     }
     
+    
     func nextWord(text: String, currentWord: Substring) -> Substring? {
         if let probabilities = self.corpusMatrix[currentWord] {
-            let sorted = probabilities.sorted{ $0.1 > $1.1 }
-            let maxCount = sorted.max { $0.1 < $1.1}?.count
-            let nextArray = sorted.filter{ $0.1 == maxCount! }.map({ $0.0 })
-            if let next = nextArray.randomItem() {
+            if let next = probabilities.map({ $0.0 }).randomItem() {
                 return next
             }
         }
@@ -124,8 +124,4 @@ extension SubstringIndex: Comparable {
         return lhs.index < rhs.index
     }
 }
-
-
-
-   // return self.buildMatrix(parser.parse(fileName: corpusName!)!)
 
