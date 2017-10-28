@@ -1,5 +1,5 @@
 //
-//  CorpusGenerator.swift
+// TextGenerator.swift
 //  MarkovChain
 //
 //  Created by Diana Komolova on 19/10/2017.
