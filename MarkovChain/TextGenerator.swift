@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 class TextGenerator {
     
     var corpus: String
@@ -30,4 +31,7 @@ class TextGenerator {
         }
     }
 }
+
+
+
 

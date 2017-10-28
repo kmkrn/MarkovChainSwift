@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Selection {
+enum Selection {
     case random
     case weighted
 }
@@ -54,7 +54,7 @@ class CorpusAnalyser {
     }
 }
 
-fileprivate func weightedRandom(_ probabilities: Occurrence<Substring>) -> Substring? {
+private func weightedRandom(_ probabilities: Occurrence<Substring>) -> Substring? {
     let totalSum = probabilities.map({ $0.1 }).reduce(0, +)
     var pseudoRandom = Int(arc4random_uniform(UInt32(totalSum)))
     let weights = probabilities.map({ $0.1 })
