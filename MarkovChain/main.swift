@@ -8,6 +8,6 @@
 
 import Foundation
 
-let cg = TextGenerator("ulysses")
-cg.buildText(length: 200, start: "Ulysses", generator: .random)
+let generator = TextGenerator("ulysses")
+generator.buildText(length: 200, start: "Ulysses", generator: .random)
 

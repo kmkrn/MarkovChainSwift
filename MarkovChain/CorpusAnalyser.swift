@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Choice {
+public enum Selection {
     case random
     case weighted
 }
@@ -16,48 +16,32 @@ public enum Choice {
 class CorpusAnalyser {
     let parser = CorpusParser()
     var corpusName: String
-    var corpusMatrix: Dictionary<Substring, Occurrence<Substring>>
     
     init(corpusName: String) {
         self.corpusName = corpusName
-        self.corpusMatrix = CorpusAnalyser.buildMatrix(parser.parse(fileName: corpusName)!)
     }
     
-    private class func buildMatrix(_ strings: [Substring]) -> Dictionary<Substring, Occurrence<Substring>> {
+    func buildMatrix(completion: (_ matrix: Dictionary<Substring, Occurrence<Substring>>) -> Void) {
+        guard let strings = self.parser.parse(fileName: self.corpusName) else {
+            return
+        }
         var occurrences = Dictionary<Substring, Occurrence<Substring>>()
         for (index, substring) in strings.enumerated() {
             var chain = Occurrence<Substring>()
             if strings.indices.contains(index + 1) {
-                    if let value = occurrences[substring] {
-                        chain = value
-                    }
-
+                if let value = occurrences[substring] {
+                    chain = value
+                }
                 chain.add(strings[index + 1], occurrences: 1)
                 occurrences[substring] = chain
             }
         }
-        return occurrences
+        completion(occurrences)
     }
     
-    fileprivate func weightedRandom(_ probabilities: Occurrence<Substring>) -> Substring? {
-        let totalSum = probabilities.map({ $0.1 }).reduce(0, +)
-        var pseudoRandom = Int(arc4random_uniform(UInt32(totalSum)))
-        let weights = probabilities.map({ $0.1 })
-        for i in 0...probabilities.count {
-            pseudoRandom -= weights[i]
-            if pseudoRandom <= 0 {
-                guard let next = probabilities.filter({ $1 == pseudoRandom }).map({ $0.0 }).randomItem() else {
-                    return nil
-                }
-                return next
-            }
-        }
-        return nil
-    }
-    
-    func nextWord(text: String, currentWord: Substring, generator: Choice) -> Substring? {
-        if let probabilities = self.corpusMatrix[currentWord] {
-            switch generator {
+    func nextWord(matrix: Dictionary<Substring, Occurrence<Substring>>, currentWord: Substring, selection: Selection) -> Substring? {
+        if let probabilities = matrix[currentWord] {
+            switch selection {
             case .random:
                 if let next = probabilities.map({ $0.0 }).randomItem() {
                     return next
@@ -68,6 +52,22 @@ class CorpusAnalyser {
         }
         return nil
     }
+}
+
+fileprivate func weightedRandom(_ probabilities: Occurrence<Substring>) -> Substring? {
+    let totalSum = probabilities.map({ $0.1 }).reduce(0, +)
+    var pseudoRandom = Int(arc4random_uniform(UInt32(totalSum)))
+    let weights = probabilities.map({ $0.1 })
+    for i in 0...probabilities.count {
+        pseudoRandom -= weights[i]
+        if pseudoRandom <= 0 {
+            guard let next = probabilities.filter({ $1 == pseudoRandom }).map({ $0.0 }).randomItem() else {
+                return nil
+            }
+            return next
+        }
+    }
+    return nil
 }
 
 struct Occurrence <Element: Hashable> {

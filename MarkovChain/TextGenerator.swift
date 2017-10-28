@@ -15,17 +15,19 @@ class TextGenerator {
         self.corpus = corpusName
     }
     
-    func buildText(length: Int, start: String, generator: Choice) {
+    func buildText(length: Int, start: String, generator: Selection) {
         let analyser = CorpusAnalyser(corpusName: self.corpus)
-        var initial = Substring(start)
-        var text = String(start)
-        for _ in 0...length {
-            if let next = analyser.nextWord(text: self.corpus, currentWord: initial, generator: generator) {
-            text.append(String(" \(next)"))
-            initial = next
+        analyser.buildMatrix { ( result ) in
+            var initial = Substring(start)
+            var text = String(start)
+            for _ in 0...length {
+                if let next = analyser.nextWord(matrix: result, currentWord: initial, selection: generator) {
+                    text.append(String(" \(next)"))
+                    initial = next
+                }
             }
+            print("\(text).")
         }
-        print(text)
     }
 }
 
