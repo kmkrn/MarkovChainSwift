@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class CorpusGenerator {
+class TextGenerator {
     
     var corpus: String
     
@@ -15,12 +15,12 @@ class CorpusGenerator {
         self.corpus = corpusName
     }
     
-    func buildText(length: Int, start: String) {
+    func buildText(length: Int, start: String, generator: Choice) {
         let analyser = CorpusAnalyser(corpusName: self.corpus)
         var initial = Substring(start)
         var text = String(start)
         for _ in 0...length {
-            if let next = analyser.nextWord(text: self.corpus, currentWord: initial) {
+            if let next = analyser.nextWord(text: self.corpus, currentWord: initial, generator: generator) {
             text.append(String(" \(next)"))
             initial = next
             }

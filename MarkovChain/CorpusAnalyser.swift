@@ -8,51 +8,74 @@
 
 import Foundation
 
+public enum Choice {
+    case random
+    case weighted
+}
+
 class CorpusAnalyser {
     let parser = CorpusParser()
     var corpusName: String
-    var corpusMatrix: Dictionary<Substring, Occurence<Substring>>
+    var corpusMatrix: Dictionary<Substring, Occurrence<Substring>>
     
     init(corpusName: String) {
         self.corpusName = corpusName
         self.corpusMatrix = CorpusAnalyser.buildMatrix(parser.parse(fileName: corpusName)!)
     }
     
-    private class func buildMatrix(_ strings: [Substring]) -> Dictionary<Substring, Occurence<Substring>> {
-        var occurencies = Dictionary<Substring, Occurence<Substring>>()
-        
+    private class func buildMatrix(_ strings: [Substring]) -> Dictionary<Substring, Occurrence<Substring>> {
+        var occurrences = Dictionary<Substring, Occurrence<Substring>>()
         for (index, substring) in strings.enumerated() {
-            var chain = Occurence<Substring>()
-            if strings.indices.contains(index + 1){
-                if let value = occurencies[substring] {
-                    chain = value
-                }
+            var chain = Occurrence<Substring>()
+            if strings.indices.contains(index + 1) {
+                    if let value = occurrences[substring] {
+                        chain = value
+                    }
+
                 chain.add(strings[index + 1], occurrences: 1)
-                occurencies[substring] = chain
+                occurrences[substring] = chain
             }
         }
-        
-        return occurencies
+        return occurrences
     }
     
-    
-    func nextWord(text: String, currentWord: Substring) -> Substring? {
-        if let probabilities = self.corpusMatrix[currentWord] {
-            if let next = probabilities.map({ $0.0 }).randomItem() {
+    fileprivate func weightedRandom(_ probabilities: Occurrence<Substring>) -> Substring? {
+        let totalSum = probabilities.map({ $0.1 }).reduce(0, +)
+        var pseudoRandom = Int(arc4random_uniform(UInt32(totalSum)))
+        let weights = probabilities.map({ $0.1 })
+        for i in 0...probabilities.count {
+            pseudoRandom -= weights[i]
+            if pseudoRandom <= 0 {
+                guard let next = probabilities.filter({ $1 == pseudoRandom }).map({ $0.0 }).randomItem() else {
+                    return nil
+                }
                 return next
+            }
+        }
+        return nil
+    }
+    
+    func nextWord(text: String, currentWord: Substring, generator: Choice) -> Substring? {
+        if let probabilities = self.corpusMatrix[currentWord] {
+            switch generator {
+            case .random:
+                if let next = probabilities.map({ $0.0 }).randomItem() {
+                    return next
+                }
+            case .weighted:
+                return weightedRandom(probabilities)!
             }
         }
         return nil
     }
 }
 
-struct Occurence <Element: Hashable> {
+struct Occurrence <Element: Hashable> {
     private var contents: [Element : Int] = [:]
     
     init() {}
     
     mutating func add(_ substring: Element, occurrences: Int = 1) {
-        precondition(occurrences > 0, "Cannot add negative number")
         if let currentCount = contents[substring] {
             contents[substring] = currentCount + occurrences
         } else {
@@ -64,7 +87,6 @@ struct Occurence <Element: Hashable> {
         guard let currentCount = contents[substring], currentCount >= occurrences else {
             preconditionFailure("Element does not exist")
         }
-        precondition(occurrences > 0, "Cannot add negative number")
         if currentCount > occurrences {
             contents[substring] = currentCount - occurrences
         } else {
@@ -73,7 +95,7 @@ struct Occurence <Element: Hashable> {
     }
 }
 
-extension Occurence: Sequence {
+extension Occurrence: Sequence {
     typealias Iterator = AnyIterator<(element: Element, count: Int)>
     
     func makeIterator() -> Iterator {
@@ -85,7 +107,7 @@ extension Occurence: Sequence {
     }
 }
 
-extension Occurence: Collection {
+extension Occurrence: Collection {
     
     typealias Index = SubstringIndex<Element>
     

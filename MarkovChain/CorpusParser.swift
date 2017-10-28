@@ -9,8 +9,6 @@
 import Foundation
 enum ParseError: String, Error {
     case invalidPath = "invalid path"
-    case invalidFilename = "no such file"
-    case problemParsing = "problem while parsing"
 }
 
 class CorpusParser {

@@ -8,6 +8,6 @@
 
 import Foundation
 
-let generator = CorpusGenerator("ulysses")
-generator.buildText(length: 200, start: "time")
+let cg = TextGenerator("ulysses")
+cg.buildText(length: 200, start: "Ulysses", generator: .random)
 
