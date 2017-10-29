@@ -28,10 +28,10 @@ class CorpusAnalyser {
         var occurrences = Dictionary<Substring, Occurrence<Substring>>()
         for (index, substring) in strings.enumerated() {
             var chain = Occurrence<Substring>()
+            if let value = occurrences[substring] {
+                chain = value
+            }
             if strings.indices.contains(index + 1) {
-                if let value = occurrences[substring] {
-                    chain = value
-                }
                 chain.add(strings[index + 1], occurrences: 1)
                 occurrences[substring] = chain
             }
