@@ -10,4 +10,3 @@ import Foundation
 
 let generator = TextGenerator("ulysses")
 generator.buildText(length: 200, start: "Ulysses", generator: .random)
-

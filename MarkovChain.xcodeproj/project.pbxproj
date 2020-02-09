@@ -7,35 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1000FA823F0715A00C5753F /* Occurence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000FA423F0715A00C5753F /* Occurence.swift */; };
+		A1000FA923F0715A00C5753F /* CorpusAnalyser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000FA523F0715A00C5753F /* CorpusAnalyser.swift */; };
+		A1000FAA23F0715A00C5753F /* CorpusParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000FA623F0715A00C5753F /* CorpusParser.swift */; };
+		A1000FAB23F0715A00C5753F /* TextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000FA723F0715A00C5753F /* TextGenerator.swift */; };
+		A1000FB423F07CD700C5753F /* ulysses.rtf in CopyFiles */ = {isa = PBXBuildFile; fileRef = A1000FB223F07BEF00C5753F /* ulysses.rtf */; };
 		AE7588421F9760340023E84D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7588411F9760340023E84D /* main.swift */; };
-		AE75885E1F98AC380023E84D /* CorpusParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75885D1F98AC380023E84D /* CorpusParser.swift */; };
-		AE7588601F98AC870023E84D /* CorpusAnalyser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75885F1F98AC870023E84D /* CorpusAnalyser.swift */; };
-		AE7588621F98AE550023E84D /* TextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7588611F98AE550023E84D /* TextGenerator.swift */; };
 		AE7588661F98D8B00023E84D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7588651F98D8B00023E84D /* Extensions.swift */; };
-		AE7588681F98DB290023E84D /* ulysses.rtf in CopyFiles */ = {isa = PBXBuildFile; fileRef = AE7588671F98DB110023E84D /* ulysses.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		AE75883C1F9760340023E84D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 8;
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				AE7588681F98DB290023E84D /* ulysses.rtf in CopyFiles */,
+				A1000FB423F07CD700C5753F /* ulysses.rtf in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A1000FA423F0715A00C5753F /* Occurence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Occurence.swift; sourceTree = "<group>"; };
+		A1000FA523F0715A00C5753F /* CorpusAnalyser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorpusAnalyser.swift; sourceTree = "<group>"; };
+		A1000FA623F0715A00C5753F /* CorpusParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorpusParser.swift; sourceTree = "<group>"; };
+		A1000FA723F0715A00C5753F /* TextGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextGenerator.swift; sourceTree = "<group>"; };
+		A1000FB223F07BEF00C5753F /* ulysses.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ulysses.rtf; sourceTree = "<group>"; };
 		AE75883E1F9760340023E84D /* MarkovChain */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MarkovChain; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7588411F9760340023E84D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		AE75885D1F98AC380023E84D /* CorpusParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CorpusParser.swift; path = ../CorpusParser.swift; sourceTree = "<group>"; };
-		AE75885F1F98AC870023E84D /* CorpusAnalyser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CorpusAnalyser.swift; path = ../CorpusAnalyser.swift; sourceTree = "<group>"; };
-		AE7588611F98AE550023E84D /* TextGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextGenerator.swift; path = ../TextGenerator.swift; sourceTree = "<group>"; };
 		AE7588651F98D8B00023E84D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		AE7588671F98DB110023E84D /* ulysses.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = ulysses.rtf; path = ../../ulysses.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +51,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1000FAC23F0727C00C5753F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A1000FB223F07BEF00C5753F /* ulysses.rtf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		AE7588351F9760340023E84D = {
 			isa = PBXGroup;
 			children = (
@@ -68,8 +78,8 @@
 		AE7588401F9760340023E84D /* MarkovChain */ = {
 			isa = PBXGroup;
 			children = (
+				A1000FAC23F0727C00C5753F /* Resources */,
 				AE7588411F9760340023E84D /* main.swift */,
-				AE7588691F98E9FB0023E84D /* Resources */,
 				AE7588641F98D89B0023E84D /* Extensions */,
 				AE7588631F98D87E0023E84D /* Chain */,
 			);
@@ -79,9 +89,10 @@
 		AE7588631F98D87E0023E84D /* Chain */ = {
 			isa = PBXGroup;
 			children = (
-				AE7588611F98AE550023E84D /* TextGenerator.swift */,
-				AE75885F1F98AC870023E84D /* CorpusAnalyser.swift */,
-				AE75885D1F98AC380023E84D /* CorpusParser.swift */,
+				A1000FA523F0715A00C5753F /* CorpusAnalyser.swift */,
+				A1000FA623F0715A00C5753F /* CorpusParser.swift */,
+				A1000FA423F0715A00C5753F /* Occurence.swift */,
+				A1000FA723F0715A00C5753F /* TextGenerator.swift */,
 			);
 			path = Chain;
 			sourceTree = "<group>";
@@ -92,14 +103,6 @@
 				AE7588651F98D8B00023E84D /* Extensions.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		AE7588691F98E9FB0023E84D /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				AE7588671F98DB110023E84D /* ulysses.rtf */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,10 +163,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE75885E1F98AC380023E84D /* CorpusParser.swift in Sources */,
-				AE7588601F98AC870023E84D /* CorpusAnalyser.swift in Sources */,
+				A1000FAB23F0715A00C5753F /* TextGenerator.swift in Sources */,
 				AE7588421F9760340023E84D /* main.swift in Sources */,
-				AE7588621F98AE550023E84D /* TextGenerator.swift in Sources */,
+				A1000FAA23F0715A00C5753F /* CorpusParser.swift in Sources */,
+				A1000FA823F0715A00C5753F /* Occurence.swift in Sources */,
+				A1000FA923F0715A00C5753F /* CorpusAnalyser.swift in Sources */,
 				AE7588661F98D8B00023E84D /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,7 +288,7 @@
 				DEVELOPMENT_TEAM = H45TYD97W4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -294,7 +298,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H45TYD97W4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
